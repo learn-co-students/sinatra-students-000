@@ -26,7 +26,7 @@ class ApplicationController < Sinatra::Base
   private_class_method :reload_dirs # This is native Ruby.
   
   # Configure Sinatra to reload directories like models and controllers.
-  configure :development, :test do
+  configure :development do
     register Sinatra::Reloader
     reload_dirs ['app/concerns', 'app/models', 'app/controllers']
   end

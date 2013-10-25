@@ -26,10 +26,10 @@ require_relative '../config/environment'
 # Do some sinatra configurations that I'm actually not 100% sure what they
 # do our how they work but I see these in a bunch of Sinatra test suites.
 # I doubt we really need this but why not?
-set :environment, :test
-set :run, false
-set :raise_errors, true
-set :logging, false
+# set :environment, :test
+# set :run, false
+# set :raise_errors, true
+# set :logging, false
 
 # Configure rspec.
 RSpec.configure do |config|
