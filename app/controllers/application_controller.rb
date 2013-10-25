@@ -21,7 +21,7 @@ class ApplicationController < Sinatra::Base
     end
   end
   
-  #Methods in controllers that aren't actions (endpoints for our routes)
+  # Methods in controllers that aren't actions (endpoints for our routes)
   # should be made private.
   private_class_method :reload_dirs # This is native Ruby.
   
