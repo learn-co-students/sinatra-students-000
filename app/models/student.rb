@@ -11,4 +11,13 @@
 
 class Student < Sequel::Model
   
+  def before_create
+    self.slugify!
+    super
+  end
+
+  def slugify!
+    self.slug = name.gsub(" ", "-").downcase
+  end
+  
 end

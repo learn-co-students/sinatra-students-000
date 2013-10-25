@@ -20,7 +20,7 @@ describe Student do
         subject.save
 
         expect(subject.slug).to eq('avi-flombaum')
-        expect(Student.find_by(:slug => "avi-flombaum")).to eq(subject)
+        expect(Student.find(:slug => "avi-flombaum")).to eq(subject)
       end
     end
   end
