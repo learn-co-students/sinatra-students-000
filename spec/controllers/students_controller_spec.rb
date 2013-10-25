@@ -54,6 +54,22 @@ describe StudentsController do
   end
 
   context 'the student profile' do
+    let(:student){Student.new.tap{|s| s.name = "Flatiron Student"}}
+
+    before do
+      Student.should_receive(:find).with(:slug => 'flatiron-student').and_return(student)
+      get '/students/flatiron-student'
+    end
+    
+    it 'responds with a 200' do
+      expect(last_response).to be_ok
+    end
+
+    it 'has the students name in the response' do
+      # The body of the last_response is basically the rendered HTML from the view.
+      expect(last_response.body).to include(student.name)
+    end
+    
   end
 
   # This context should only be about testing the edit form.

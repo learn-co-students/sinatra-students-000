@@ -87,7 +87,7 @@ class StudentScraper
       student.work = value_missing
       student.work_title = parse_work_title(student_page)
       student.education = parse_education(student_page)
-
+      
       puts "Saving student ##{student.id} (#{student.name})..." if student.save
       student
    end

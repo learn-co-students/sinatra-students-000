@@ -15,7 +15,12 @@ class StudentsController < ApplicationController
 
   # GET '/students/new'
   # POST '/students'
+  
   # GET '/students/avi-flombaum'
+  get '/students/:slug' do
+    @student = Student.find(:slug => params[:slug])
+    erb :'students/show'
+  end
   # GET '/students/avi-flombaum/edit'
   # POST '/students/avi-flombaum'
 end
