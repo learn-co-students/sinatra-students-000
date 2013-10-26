@@ -13,6 +13,7 @@ require 'rack/test'
 # that do not need to be tested.
 require 'simplecov'
 SimpleCov.start do 
+  add_filter '/app/controllers/application_controller.rb'
   add_filter '/db/'    
   add_filter '/config/'
   add_filter '/spec/'

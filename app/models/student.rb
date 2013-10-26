@@ -12,7 +12,7 @@
 class Student < Sequel::Model
   
   def before_create
-    self.slugify!
+    slugify!
     super
   end
 
