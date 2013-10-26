@@ -41,14 +41,17 @@ RSpec.configure do |config|
   config.filter_run :focus
 
   config.order = 'random'
+  
   # Add a global before to reset the database on every execution
   # of the test suite.
-  config.before do
+  config.before(:all) do
     Rake::Task['db:reset'].invoke()
   end
 
-  config.after do
-    Rake::Task['db:reset'].invoke()
+  config.before(:each) do
+    DB.tables.each do |table|
+      DB.run("DELETE FROM #{table}")
+    end
   end
 end
 

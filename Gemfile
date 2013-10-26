@@ -19,4 +19,5 @@ group :test do
   gem 'simplecov'
   gem 'rspec'
   gem 'terminal-notifier-guard'
+  gem 'capybara'
 end
