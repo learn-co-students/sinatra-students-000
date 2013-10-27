@@ -47,9 +47,31 @@ describe StudentsController do
   end
   
   context 'GET /students/new' do
+    before do
+      get '/students/new'
+    end
+
+    it 'responds with a 200' do
+      expect(last_response).to be_ok
+    end
+
+    it 'has a new student form' do
+      # The body of the last_response is basically the rendered HTML from the view.
+      expect(last_response.body).to include("<form ")
+    end
   end
   
   context 'POST /students' do
+    let(:params){{:student=>{"name" => "Flatiron Student"}}}
+  
+    before do
+      post '/students', params
+    end
+
+    it 'redirects to the student page' do
+      expect(last_response).to be_redirect
+      expect(last_response.location).to include("/students/flatiron-student")
+    end
   end
 
   context 'GET /students/slug' do

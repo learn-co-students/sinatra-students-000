@@ -10,7 +10,7 @@
 # http://sequel.rubyforge.org/rdoc/classes/Sequel/Dataset.html
 
 class Student < Sequel::Model
-  
+
   def before_create
     slugify!
     super

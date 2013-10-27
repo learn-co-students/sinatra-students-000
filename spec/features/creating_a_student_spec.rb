@@ -8,8 +8,8 @@ feature "Creating a student" do
 
   scenario "submitting the new student form" do
     within("#new_student") do 
-      fill_in "Name", :with => "Flatiron School"
-      click_link 'Create Student'
+      fill_in "student[name]", :with => "Flatiron School"
+      click_button 'Create Student'
     end
     expect(page).to have_content 'Flatiron School'
   end
