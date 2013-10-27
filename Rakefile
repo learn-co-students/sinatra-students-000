@@ -15,6 +15,15 @@ task :console => [:environment] do
   Pry.start
 end
 
+desc 'Fix all the profile image urls'
+task :fix_profile_images => [:environment] do
+  Student.all.each do |student|
+    puts "Normalizing #{student.id} (#{student.name}) - #{student.profile_image}"
+    student.normalize_profile_image
+    student.save
+  end
+end
+
 # IMPORTANT - READ THIS TASK!
 # This is the method in which you will initiate the scrape
 # of the student site to populate your development database. 

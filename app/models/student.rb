@@ -11,8 +11,17 @@
 
 class Student < Sequel::Model
 
+  def normalize_profile_image
+    return if !profile_image
+    if profile_image.start_with?("../img")
+      root_site = "http://students.flatironschool.com"
+      self.profile_image = self.profile_image.gsub("../img/", "#{root_site}/img/")
+    end
+  end
+
   def before_create
     slugify!
+    normalize_profile_image
     super
   end
 
