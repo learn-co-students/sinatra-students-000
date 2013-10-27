@@ -20,4 +20,5 @@ group :test do
   gem 'rspec'
   gem 'terminal-notifier-guard'
   gem 'capybara'
+  gem 'selenium-webdriver'
 end

@@ -1,10 +1,11 @@
 require_relative '../spec_helper'
 
 describe StudentsController do
+  # student will be a new, unsaved student.
+  let(:student){Student.new(:name => "Flatiron Student")}
+
   # Every route should be within it's own context.
   context 'GET /' do
-    # student will be a new, unsaved student.
-    let(:student){Student.new.tap{|s| s.name = "Flatiron Student"}}
     # As your test suite grows, you might need more sample data to correctly
     # test your controllers. For example, when testing updating a student
     # your test object (student), will have to have been saved and you'll have
@@ -54,17 +55,14 @@ describe StudentsController do
     it 'responds with a 200' do
       expect(last_response).to be_ok
     end
-
-    it 'has a new student form' do
-      # The body of the last_response is basically the rendered HTML from the view.
-      expect(last_response.body).to include("<form ")
-    end
   end
   
   context 'POST /students' do
     let(:params){{:student=>{"name" => "Flatiron Student"}}}
-  
+
     before do
+      # How to mock the student here?
+      # Student.should_receive(:new).with(params[:student])
       post '/students', params
     end
 
@@ -75,8 +73,7 @@ describe StudentsController do
   end
 
   context 'GET /students/slug' do
-    let(:student){Student.new.tap{|s| s.name = "Flatiron Student"}}
-
+    
     before do
       Student.should_receive(:find).with(:slug => 'flatiron-student').and_return(student)
       get '/students/flatiron-student'
@@ -94,8 +91,33 @@ describe StudentsController do
 
   # This context should only be about testing the edit form.
   context 'GET /students/slug/edit' do
+
+    before do
+      Student.should_receive(:find).with(:slug => 'flatiron-student').and_return(student)
+      get '/students/flatiron-student/edit'
+    end
+    
+    it 'responds with a 200' do
+      expect(last_response).to be_ok
+    end
   end
 
   context 'POST /students/slug' do
+    let(:student){Student.create(:name => "Flatiron Student")}
+    let(:params){{:student=>{"name" => "Updated Flatiron Student"}}}
+
+    before do
+      Student.should_receive(:find).with(:slug => 'flatiron-student').and_return(student)
+      post "/students/#{student.slug}", params
+    end
+
+    it 'redirects to the student show page' do
+      expect(last_response).to be_redirect
+      expect(last_response.location).to include("/students/flatiron-student")
+    end
+
+    it 'updated the student name' do
+      expect(student.name).to eq("Updated Flatiron Student")
+    end
   end
 end

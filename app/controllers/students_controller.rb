@@ -32,6 +32,16 @@ class StudentsController < ApplicationController
   end
 
   # GET '/students/avi-flombaum/edit'
+  get '/students/:slug/edit' do
+    @student = Student.find(:slug => params[:slug])
+    erb :'students/edit'
+  end
+
   
   # POST '/students/avi-flombaum'
+  post '/students/:slug' do
+    @student = Student.find(:slug => params[:slug])
+    @student.update(params[:student])
+    redirect "/students/#{@student.slug}"
+  end
 end
