@@ -1,0 +1,8 @@
+<form action="/students/<%= @student.slug %>" method="post" id="edit_student">
+  <p>
+    <label>Name</label>
+    <input name="student[name]" value="<%= @student.name %>" />
+  </p>
+
+  <input type="submit" value="Update Student" />
+</form>
