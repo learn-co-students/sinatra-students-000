@@ -3,7 +3,6 @@
 # the rest of our controllers.
 
 # Do not code routes or controller actions within this class.
-
 class ApplicationController < Sinatra::Base
   # A custom view path to support a more MVC structure.
   # This will point all views to app/views, leaving you to specify
@@ -35,4 +34,5 @@ class ApplicationController < Sinatra::Base
     use Rack::CommonLogger
     enable :logging
   end
+  
 end
