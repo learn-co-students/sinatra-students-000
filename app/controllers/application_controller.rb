@@ -31,4 +31,7 @@ class ApplicationController < Sinatra::Base
     reload_dirs ['app/concerns', 'app/models', 'app/controllers']
   end
 
+  configure :production, :development do
+    enable :logging
+  end
 end
