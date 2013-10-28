@@ -15,8 +15,13 @@ def mount_controllers_as_middleware
 end
 mount_controllers_as_middleware
 
+log = File.new("log/#{ENV["RACK_ENV"]}.log", "w")
+STDOUT.reopen(log)
+STDERR.reopen(log)
+
 use Rack::Static, :root => 'public', :urls => ['/']
 use Rack::CommonLogger
+
 
 # Mount the main controller as our Rack Application.
 run ApplicationController
