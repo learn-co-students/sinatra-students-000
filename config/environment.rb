@@ -9,6 +9,8 @@
 require 'bundler'  
 Bundler.require(:default, ENV['RACK_ENV'])
 
+require 'logger'
+
 # A little about ENV['RACK_ENV']
 # ENV is a constant that is provided by ruby that stores Environmental
 # variables in a hash. These variables cross the boundary of our application,

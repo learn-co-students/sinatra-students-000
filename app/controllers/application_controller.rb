@@ -32,6 +32,7 @@ class ApplicationController < Sinatra::Base
   end
 
   configure :production, :development do
+    use Rack::CommonLogger
     enable :logging
   end
 end
