@@ -10,6 +10,7 @@ gem 'nokogiri'
 # Gems to be used only in specific environments.
 group :development, :test do
   gem 'pry'
+  gem 'capistrano', '~>2.0'
 end
 
 # Gems to only be used in the test environment.
