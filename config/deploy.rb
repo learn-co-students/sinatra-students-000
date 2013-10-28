@@ -28,6 +28,13 @@ role :db,  "#{server_ip}", :primary => true        # This is where Rails migrati
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
+ task :migrate, :roles => :app do 
+  run "cd #{current_path} && rake db:migrate RACK_ENV=production"
+ end
+
+ task :scrape_students, :roles => :app do
+  run "cd #{current_path} && rake scrape_students RACK_ENV=production"
+end
  task :start do ; end
  task :stop do ; end
  task :restart, :roles => :app, :except => { :no_release => true } do
