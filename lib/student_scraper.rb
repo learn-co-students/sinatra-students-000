@@ -84,6 +84,7 @@ class StudentScraper
       student.work = value_missing
       student.work_title = parse_work_title(student_page)
       student.education = parse_education(student_page)
+      student.slug = to_slug(name)
 
       puts "Saving student ##{student.id} (#{student.name})..." if student.save
       student
@@ -101,4 +102,10 @@ class StudentScraper
       link.attr('href')
     end
   end
+
+  def to_slug(student_name)
+    student_name.downcase.split.join('-')
+  end
+
+
 end
