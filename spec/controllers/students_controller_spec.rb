@@ -4,7 +4,8 @@ describe StudentsController do
   # Every route should be within it's own context.
   context 'GET /' do
     # student will be a new, unsaved student.
-    let(:student){Student.new.tap{|s| s.name = "Flatiron Student"}}
+    let(:student1){Student.new.tap{|s| s.name = "Luke Skywalker"}}
+    let(:student2){Student.new.tap{|s| s.name = "Captain Picard"}}
     # As your test suite grows, you might need more sample data to correctly
     # test your controllers. For example, when testing updating a student
     # your test object (student), will have to have been saved and you'll have
@@ -18,6 +19,8 @@ describe StudentsController do
     #    method 'last_response', which will always mean the last response
     #    our test suite triggered.
     before do
+      student1.save
+      student2.save
       get '/'
     end
 
@@ -33,23 +36,94 @@ describe StudentsController do
   
     it 'has the students name in the response' do
       # The body of the last_response is basically the rendered HTML from the view.
-      expect(last_response.body).to include(student.name)
+      expect(last_response.body).to include(student1.name)
+      expect(last_response.body).to include(student2.name)
     end
   end
   
   context 'GET /students/new' do
+
+    before do
+      get '/students/new'
+    end
+
+    it 'contains a form' do
+      expect(last_response.body).to include("<form ")
+      expect(last_response.body).to include("</form>")
+    end
+
+    it 'responds with a 200' do
+      expect(last_response).to be_ok
+    end
   end
   
   context 'POST /students' do
+
+    before do
+      post "/students", {:'student[name]' => "Homer Simpson"}
+      @student = Student.find_by(:name => "Homer Simpson")
+      follow_redirect!
+    end
+
+    it 'has the students name in the response' do
+      expect(last_response.body).to include(@student.name)
+    end
+
+    it 'responds with a 200' do
+      expect(last_response).to be_ok
+    end    
   end
 
-  context 'GET /students/slug' do
+  context 'GET /students/:slug' do
+
+    before do
+      bob = Student.create(name: "Bob Lewis")
+      get "/students/#{bob.slug}"
+    end
+
+    it 'responds with a 200' do
+      expect(last_response).to be_ok
+    end
   end
 
   # This context should only be about testing the edit form.
-  context 'GET /students/slug/edit' do
+  context 'GET /students/:slug/edit' do
+    before do
+      jerry = Student.create(
+        name: "Jerry Lewis",
+        twitter: "@jerry",
+        linkedin: "Mr. Jerry the pro"
+      )
+      get "/students/#{jerry.slug}/edit"
+    end
+
+    it 'responds with a 200' do
+      expect(last_response).to be_ok
+    end
+
+    it "renders the edit page for the info" do
+      expect(last_response.body).to include("Jerry Lewis")
+      expect(last_response.body).to include("@jerry")
+      expect(last_response.body).to include("Mr. Jerry the pro")
+    end
+
   end
 
-  context 'POST /students/slug' do
+  context 'POST /students/:slug' do
+    before do
+      jerry = Student.create(
+        name: "Jerry Lewis",
+        twitter: "@jerry",
+        linkedin: "Mr. Jerry the pro"
+      )
+      post "/students/#{jerry.slug}", {:student => {:twitter => "@jerrythecoder", :name => "Jerry Lewis", :linkedin => "Mr. Jerry the pro"}}
+      @student = Student.find_by(:name => "Jerry Lewis")
+      follow_redirect!
+    end
+
+    it "updates attribute of student" do
+      expect(@student.twitter).to eq("@jerrythecoder")
+    end
+
   end
 end
