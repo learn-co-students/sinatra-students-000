@@ -1,9 +1,8 @@
 require_relative './config/environment'
 require 'sinatra/activerecord/rake'
 
-
 desc 'Load a pry console'
-task :console => [:environment] do
+task :console do
   Pry.start
 end
 

@@ -6,10 +6,10 @@ describe Student do
       it "formats a slug based on a student's name" do
         # Remember that subject will by default be a new instance
         # of the class being described.
-        subject.name = "Avi Flombaum"
+        subject.name = 'Avi "TheBoss" Flombaum'
         subject.slugify!
 
-        expect(subject.slug).to eq('avi-flombaum')
+        expect(subject.slug).to eq('avi-theboss-flombaum')
       end
 
       it 'saves the slug to the database on create' do
