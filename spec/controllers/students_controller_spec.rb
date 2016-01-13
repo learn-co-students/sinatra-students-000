@@ -18,6 +18,7 @@ describe StudentsController do
     #    method 'last_response', which will always mean the last response
     #    our test suite triggered.
     before do
+      student.save
       get '/'
     end
 

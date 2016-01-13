@@ -18,6 +18,7 @@ describe Student do
         # http://edgeguides.rubyonrails.org/active_record_callbacks.html
         subject.name = "Avi Flombaum"
         subject.save
+        #binding.pry
 
         expect(subject.slug).to eq('avi-flombaum')
         expect(Student.find_by(:slug => "avi-flombaum")).to eq(subject)
