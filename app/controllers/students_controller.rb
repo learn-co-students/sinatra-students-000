@@ -7,6 +7,9 @@ class StudentsController < ApplicationController
     # Load all the students into an instance variable.
     # We use the ::all method on the Student class, provided by Sequel
     @students = Student.all
+    puts "******************"
+    puts @students
+    puts "================="
     erb :'students/index' # render the index.erb within app/views/students
   end
 

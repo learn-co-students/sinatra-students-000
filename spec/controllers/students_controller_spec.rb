@@ -18,6 +18,7 @@ describe StudentsController do
     #    method 'last_response', which will always mean the last response
     #    our test suite triggered.
     before do
+      student.save
       get '/'
     end
 
@@ -30,16 +31,16 @@ describe StudentsController do
       # A shortcut to checking the status is to just say it is ok with the line below.
       expect(last_response).to be_ok
     end
-  
+
     it 'has the students name in the response' do
       # The body of the last_response is basically the rendered HTML from the view.
       expect(last_response.body).to include(student.name)
     end
   end
-  
+
   context 'GET /students/new' do
   end
-  
+
   context 'POST /students' do
   end
 
